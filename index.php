@@ -13,19 +13,20 @@ require_once('categories.php');
 require_once('ads.php');
 require_once('functions.php');
 
-$lot_id = null;
-$lot = null;
+$url = $_SERVER['REQUEST_URI'];
+$url = explode('?', $url);
 
-if (isset($_GET['lot_id'])) {
-    $lot_id = $_GET['lot_id'];
-    if (isset($ads[$lot_id])){
-        $lot = $ads[$lot_id];
-    }
-}
-
-if(!isset($_GET['lot_id'])){
+if($url[0] === "/"){
     $template = include_template('templates/index.php', ['ads' => $ads ]);
-} else {
+} else if ($url[0] === "/lot.php") {
+    $lot_id = null;
+    $lot = null;
+    if (isset($_GET['lot_id'])) {
+        $lot_id = $_GET['lot_id'];
+        if (isset($ads[$lot_id])){
+            $lot = $ads[$lot_id];
+        }
+    }
     $template = include_template('templates/lot.php', ['lot' => $lot ]);
 }
 
