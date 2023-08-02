@@ -2,6 +2,7 @@
 $is_auth = (bool) rand(0, 1);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // date_default_timezone_set("Europe/Moskow");
 
 $user_name = 'Константин';
@@ -46,6 +47,11 @@ print($layout);
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
 
+=======
+$user_name = 'Константин';
+$user_avatar = 'img/user.jpg';
+
+>>>>>>> parent of 79f37c0 (Модуль 3 Шаблонизация и организация кода)
 $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
 
 $ads = [
@@ -243,4 +249,7 @@ function priceFormat($price){
 
 </body>
 </html>
+<<<<<<< HEAD
+>>>>>>> parent of 79f37c0 (Модуль 3 Шаблонизация и организация кода)
+=======
 >>>>>>> parent of 79f37c0 (Модуль 3 Шаблонизация и организация кода)
