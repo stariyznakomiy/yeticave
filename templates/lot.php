@@ -27,7 +27,7 @@
       <div class="lot-item__content">
         <div class="lot-item__left">
           <div class="lot-item__image">
-            <img src="<?= $lot["url"] ?>" width="730" height="548" alt="<?= $lot["Название"] ?>.">
+            <img src="<?= $lot["url"] ?>" width="730" height="548" alt="<?= $lot["Название"] ?>">
           </div>
           <p class="lot-item__category">Категория: <span><?= $lot["Категория"] ?></span></p>
           <p class="lot-item__description">Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив
@@ -120,9 +120,8 @@
           </div>
         </div>
       </div>
-      <?php else :?>
-        <h1>404 Страница не найдена</h1>
-      <?php endif;?>
-    </section>
+  <?php else :?>
+    <h1>404 Страница не найдена</h1>
+  <?php endif;?>
+  </section>
 </main>
-

@@ -1,6 +1,6 @@
 <?php
 
-$ads = [
+$lots = [
   [
       "Название" => "2014 Rossignol District Snowboard",
       "Категория" => $categories[0],
