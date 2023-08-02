@@ -1,0 +1,73 @@
+<?php
+
+$is_auth = (bool) rand(0, 1);
+
+// date_default_timezone_set("Europe/Moskow");
+
+$user_name = 'Константин';
+$user_avatar = 'img/user.jpg';
+
+$page_title = 'Главная';
+
+$categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
+
+
+require_once('data-lots.php');
+require_once('functions.php');
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $lot = $_POST;
+
+  $required = ['Название', 'Категория', 'Описание', 'Цена', 'Шаг_ставки', 'Дата_окончания'];
+	// $dict = ['lot-name' => 'Наименование', 'category' => 'Категория', 'message' => 'Описание', 'file' => 'Изображение', 'lot-rate' => 'Начальная цена', 'lot-step' => 'Шаг ставки', 'lot-date'=> 'Дата окончания торгов'];
+  $errors = [];
+
+  foreach ($required as $key) {
+		if (empty($_POST[$key])) {
+            $errors[$key] = 'Это поле надо заполнить';
+		}
+	}
+
+  if (isset($_FILES['Изображение']['name']) && !empty($_FILES['Изображение']['name'])) {
+		$tmp_name = $_FILES['Изображение']['tmp_name'];
+		$path = $_FILES['Изображение']['name'];
+
+		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$file_type = finfo_file($finfo, $tmp_name);
+		if ($file_type !== "image/jpeg") {
+			$errors['file'] = 'Загрузите картинку в формате JPEG';
+		}
+		else {
+			move_uploaded_file($tmp_name, 'img/' . $path);
+			$lot['path'] = $path;
+			$lot['Изображение'] = 'img/' . $path;
+		}
+	}
+	else {
+		$errors['file'] = 'Вы не загрузили файл';
+	}
+
+  if (count($errors)) {
+		$template = include_template('templates/add.php', ['lot' => $lot, 'errors' => $errors]);
+	}
+  else {
+		$template = include_template('templates/lot.php', ['lot' => $lot]);
+	}
+}
+else {
+	$template = include_template('templates/add.php', []);
+}
+
+$layout = include_template('templates/layout.php', 
+    [ 
+        'content' => $template, 
+        'is_auth' => $is_auth, 
+        'user_name' => $user_name, 
+        'user_avatar' => $user_avatar, 
+        'page_title' => 'Yeticave - Добавление лота', 
+        'categories' => $categories 
+    ]
+);
+
+print($layout);
