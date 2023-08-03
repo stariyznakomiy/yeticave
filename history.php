@@ -7,14 +7,22 @@ $is_auth = (bool) rand(0, 1);
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
 
-$page_title = 'Главная';
+$page_title = 'История просмотров';
 
 require_once('data-categories.php');
 require_once('data-lots.php');
 require_once('functions.php');
 
+$history_values = [];
 
-$template = include_template('templates/index.php', ['lots' => $lots, ]);
+if (isset($_COOKIE['history'])) {
+    $history_values = json_decode($_COOKIE['history']);
+}
+
+$categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
+
+
+$template = include_template('templates/history.php', ['lots' => $lots, 'history_values' => $history_values]);
 $layout = include_template('templates/layout.php', 
     [ 
         'content' => $template, 
@@ -27,4 +35,3 @@ $layout = include_template('templates/layout.php',
 );
 
 print($layout);
-

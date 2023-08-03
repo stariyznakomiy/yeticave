@@ -5,8 +5,9 @@ $is_auth = (bool) rand(0, 1);
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
 
-$categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
+$page_title = 'Лот';
 
+require_once('data-categories.php');
 require_once('data-lots.php');
 require_once('functions.php');
 
@@ -25,6 +26,23 @@ if (!$lot) {
 	http_response_code(404);
 }
 
+$history_name = "history";
+$history_values[] = $lot_id;
+$expire = strtotime("+30 days");
+$path = "/";
+
+if($lot){
+
+    if (isset($_COOKIE['history'])) {
+        $history_values = json_decode($_COOKIE['history']);
+        if (!in_array($lot_id, $history_values)) {
+            $history_values[] = $lot_id;
+        }
+    }
+
+    setcookie($history_name, json_encode($history_values), $expire, $path);
+}
+
 $template = include_template('templates/lot.php', ['lot' => $lot, ]);
 $layout = include_template('templates/layout.php', 
     [ 
@@ -32,7 +50,7 @@ $layout = include_template('templates/layout.php',
         'is_auth' => $is_auth, 
         'user_name' => $user_name, 
         'user_avatar' => $user_avatar, 
-        'page_title' => 'Yeticave - просмотр лота', 
+        'page_title' => $page_title, 
         'categories' => [] 
     ]
 );

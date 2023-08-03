@@ -7,11 +7,9 @@ $is_auth = (bool) rand(0, 1);
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
 
-$page_title = 'Главная';
+$page_title = 'Добавление лота';
 
-$categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
-
-
+require_once('data-categories.php');
 require_once('data-lots.php');
 require_once('functions.php');
 
@@ -20,8 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $lot = $_POST;
 
   $required = ['Название', 'Категория', 'Описание', 'Цена', 'Шаг_ставки', 'Дата_окончания'];
-	// $dict = ['lot-name' => 'Наименование', 'category' => 'Категория', 'message' => 'Описание', 'file' => 'Изображение', 'lot-rate' => 'Начальная цена', 'lot-step' => 'Шаг ставки', 'lot-date'=> 'Дата окончания торгов'];
-  $errors = [];
+	$errors = [];
 
   foreach ($required as $key) {
 		if (empty($_POST[$key])) {
@@ -65,7 +62,7 @@ $layout = include_template('templates/layout.php',
         'is_auth' => $is_auth, 
         'user_name' => $user_name, 
         'user_avatar' => $user_avatar, 
-        'page_title' => 'Yeticave - Добавление лота', 
+        'page_title' => $page_title, 
         'categories' => $categories 
     ]
 );
