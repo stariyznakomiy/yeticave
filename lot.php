@@ -1,8 +1,7 @@
 <?php
 
-$is_auth = (bool) rand(0, 1);
+session_start();
 
-$user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
 
 $page_title = 'Лот';
@@ -47,8 +46,6 @@ $template = include_template('templates/lot.php', ['lot' => $lot, ]);
 $layout = include_template('templates/layout.php', 
     [ 
         'content' => $template,  
-        'is_auth' => $is_auth, 
-        'user_name' => $user_name, 
         'user_avatar' => $user_avatar, 
         'page_title' => $page_title, 
         'categories' => [] 

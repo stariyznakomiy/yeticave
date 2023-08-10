@@ -26,3 +26,11 @@ function timer($date){
 
   return $hours . ':' . $minutes;
 }
+
+function searchUserByEmail($email, $users){
+  foreach ($users as $user) {
+    if($user['email'] === $email){
+      return $user;
+    }
+  }
+}

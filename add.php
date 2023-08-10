@@ -1,14 +1,15 @@
 <?php
 
-$is_auth = (bool) rand(0, 1);
+session_start();
 
 // date_default_timezone_set("Europe/Moskow");
 
-$user_name = 'Константин';
+if(!isset($_SESSION["user"])){
+	http_response_code(403);
+}
+
 $user_avatar = 'img/user.jpg';
-
 $page_title = 'Добавление лота';
-
 require_once('data-categories.php');
 require_once('data-lots.php');
 require_once('functions.php');
@@ -59,8 +60,6 @@ else {
 $layout = include_template('templates/layout.php', 
     [ 
         'content' => $template, 
-        'is_auth' => $is_auth, 
-        'user_name' => $user_name, 
         'user_avatar' => $user_avatar, 
         'page_title' => $page_title, 
         'categories' => $categories 
